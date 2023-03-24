@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <title>Blog</title>
+</head>
+
+<body>
+    <h1>Welcome to the future</h1>
+    @if auth()
+    <form action="/blog/create" method="POST">
+        {{ csrf_field }}
+
+        <label> Title </label>
+        <input type="name" name="title"><br>
+
+        <label> Body </label>
+        <textarea name="body"></textarea>
+
+        <input type="submit" value="Post!">
+    </form>
+    @else
+    <a href="/login">Please Login</a>
+    @endif
+    <div>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            @for post in blogs
+            <tr>
+                <td>{{post.title}}</td>
+                <td>{{post.body}}</td>
+                <td><a href="/blog/update/{{post.id}}">Edit</a> <a href="/blog/delete/{{post.id}}">Delete</a></td>
+            </tr>
+            @endfor
+
+        </table>
+    </div>
+</body>
+
+</html>
